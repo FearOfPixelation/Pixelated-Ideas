@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixelated Ideas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        header {
+            background-color: #1f1f1f;
+            color: #e0e0e0;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        nav {
+            text-align: center;
+            margin: 20px 0;
+        }
+        nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.2em;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        .search-bar {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .search-bar input {
+            width: 50%;
+            padding: 10px;
+            font-size: 1em;
+            background-color: #2c2c2c;
+            border: 1px solid #444;
+            color: #e0e0e0;
+        }
+        .search-bar input::placeholder {
+            color: #aaa;
+        }
+        .post-grid {
+            display: flex;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .post {
+            background-color: #1f1f1f;
+            margin: 10px;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 30%;
+            box-sizing: border-box;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .post:hover {
+            transform: scale(1.05);
+            background-color: #333;
+        }
+        .post img {
+            width: 100%;
+            height: auto;
+            max-height: 200px; /* Adjust max height if needed */
+            object-fit: cover;
+        }
+        .post h2 {
+            font-size: 1.5em;
+            margin: 10px 0 10px;
+        }
+        .post p {
+            font-size: 1em;
+            margin: 0;
+        }
+        footer {
+            background-color: #1f1f1f;
+            color: #e0e0e0;
+            text-align: center;
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+        .blog-post {
+            display: none;
+            margin: 10px;
+            padding: 20px;
+        }
+        .blog-post h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .blog-post p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .blog-post img {
+            width: 100%;
+            height: auto;
+            max-height: none; /* Display images at their actual size */
+            object-fit: cover;
+            margin: 20px 0;
+        }
+        .blog-post a {
+            color: #bb86fc;
+            text-decoration: none;
+        }
+        .blog-post a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        function liveSearch() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let posts = document.getElementsByClassName('post');
+            
+            for (let i = 0; i < posts.length; i++) {
+                let post = posts[i];
+                if (post.innerHTML.toLowerCase().includes(input)) {
+                    post.style.display = '';
+                } else {
+                    post.style.display = 'none';
+                }
+            }
+        }
+
+        function openPost() {
+            document.querySelector('.post-grid').style.display = 'none';
+            document.querySelector('.search-bar').style.display = 'none';
+            document.querySelector('.blog-post').style.display = 'block';
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            let posts = document.getElementsByClassName('post');
+            for (let i = 0; i < posts.length; i++) {
+                posts[i].addEventListener('click', openPost);
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Pixelated Ideas</h1>
+    </header>
+    <nav>
+        <a href="#" onclick="location.reload()">Home</a>
+        <a href="#">About</a>
+        <a href="#">Blog</a>
+        <a href="#">Contact</a>
+    </nav>
+    <div class="container">
+        <div class="search-bar">
+            <input type="text" id="searchInput" onkeyup="liveSearch()" placeholder="Search posts...">
+        </div>
+        <div class="post-grid">
+            <div class="post">
+                <img src="https://raw.githubusercontent.com/FearOfPixelation/Pixelated-Ideas/main/markus-spiske-1LLh8k2_YFk-unsplash.jpg" alt="Post 1 Thumbnail">
+                <h2>How to make HTML websites with ChatGPT</h2>
+                <p>Content about creating HTML websites using ChatGPT...</p>
+            </div>
+        </div>
+        <div class="blog-post">
+            <h2>How to make HTML websites with ChatGPT</h2>
+            <p>Website design has never been easier, here's how to make a website with ChatGPT! Firstly, go to the <a href="https://chatgpt.com" target="_blank">ChatGPT</a> website. Now, ask ChatGPT to create "HTML code" with your website idea in the same message.</p>
+            <img src="https://raw.githubusercontent.com/FearOfPixelation/Pixelated-Ideas/main/Screenshot%202024-06-11%20174950.png" alt="Step 1 Screenshot">
+            <p>Now, copy the code. Open notepad and paste it into it.</p>
+            <img src="https://raw.githubusercontent.com/FearOfPixelation/Pixelated-Ideas/main/Screenshot%202024-06-11%20175241.png" alt="Step 2 Screenshot">
+            <p>Now, hover over files, then click save as</p>
+            <img src="https://raw.githubusercontent.com/FearOfPixelation/Pixelated-Ideas/main/Screenshot%202024-06-11%20175739.png" alt="Step 3 Screenshot">
+            <p>Select save as type, do all files.</p>
+            <img src="https://raw.githubusercontent.com/FearOfPixelation/Pixelated-Ideas/main/Screenshot%202024-06-11%20180141.png" alt="Step 4 Screenshot">
+            <p>Name it .html at the end, then click save.</p>
+            <img src="https://raw.githubusercontent.com/FearOfPixelation/Pixelated-Ideas/main/Screenshot%202024-06-11%20180401.png" alt="Step 5 Screenshot">
+            <p>You now have a website file, you now need a domain. You can either get a domain with GitHub (How this website is running) or you can get paid domains. Here are some domain hosters:</p>
+            <ul>
+                <li><a href="https://www.godaddy.com/" target="_blank">GoDaddy</a></li>
+                <li><a href="https://www.namecheap.com/" target="_blank">Namecheap</a></li>
+                <li><a href="https://www.bluehost.com/" target="_blank">Bluehost</a></li>
+                <li><a href="https://www.hostgator.com/" target="_blank">HostGator</a></li>
+                <li><a href="https://www.siteground.com/" target="_blank">SiteGround</a></li>
+                <li><a href="https://www.dreamhost.com/" target="_blank">DreamHost</a></li>
+                <li><a href="https://www.a2hosting.com/" target="_blank">A2 Hosting</a></li>
+                <li><a href="https://www.inmotionhosting.com/" target="_blank">InMotion Hosting</a></li>
+                <li><a href="https://www.ionos.com/" target="_blank">IONOS</a></li>
+                <li><a href="https://www.greenhost.net/" target="_blank">Greenhost</a></li>
+            </ul>
+        </div>
+    </div>
+    <footer>
+        &copy; 2024 Pixelated Ideas. All rights reserved.
+    </footer>
+</body>
+</html>
+
