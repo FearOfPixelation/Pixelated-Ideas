@@ -54,6 +54,7 @@
             display: flex;
             justify-content: center;
             transition: all 0.3s ease;
+            flex-direction: row-reverse; /* Ensure newest posts are on the far left */
         }
         .post {
             background-color: #1f1f1f;
@@ -80,18 +81,24 @@
             font-size: 1.5em;
             margin: 10px 0 10px;
         }
-        .post p {
-            font-size: 1em;
-            margin: 0;
+        .post .date {
+            font-size: 0.8em;
+            color: #bbb;
+            margin-top: 5px;
         }
-        footer {
-            background-color: #1f1f1f;
-            color: #e0e0e0;
-            text-align: center;
-            padding: 10px 20px;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
+        .about {
+            display: none;
+            margin: 10px;
+            padding: 20px;
+        }
+        .about h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .about p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 20px;
         }
         .blog-post {
             display: none;
@@ -137,16 +144,35 @@
             }
         }
 
-        function openPost() {
+        function openPost(postId) {
             document.querySelector('.post-grid').style.display = 'none';
             document.querySelector('.search-bar').style.display = 'none';
-            document.querySelector('.blog-post').style.display = 'block';
+            document.querySelector('.about').style.display = 'none';
+            document.querySelectorAll('.blog-post').forEach(post => post.style.display = 'none');
+            document.getElementById(postId).style.display = 'block';
+        }
+
+        function openAbout() {
+            document.querySelector('.post-grid').style.display = 'none';
+            document.querySelector('.search-bar').style.display = 'none';
+            document.querySelectorAll('.blog-post').forEach(post => post.style.display = 'none');
+            document.querySelector('.about').style.display = 'block';
         }
 
         document.addEventListener('DOMContentLoaded', function() {
             let posts = document.getElementsByClassName('post');
             for (let i = 0; i < posts.length; i++) {
-                posts[i].addEventListener('click', openPost);
+                posts[i].addEventListener('click', function() {
+                    openPost(this.getAttribute('data-post'));
+                });
+            }
+
+            let aboutLink = document.querySelector('nav a[href="#about"]');
+            if (aboutLink) {
+                aboutLink.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    openAbout();
+                });
             }
         });
     </script>
@@ -157,22 +183,38 @@
     </header>
     <nav>
         <a href="#" onclick="location.reload()">Home</a>
-        <a href="#">About</a>
-        <a href="#">Blog</a>
-        <a href="#">Contact</a>
+        <a href="#about">About</a>
     </nav>
     <div class="container">
         <div class="search-bar">
             <input type="text" id="searchInput" onkeyup="liveSearch()" placeholder="Search posts...">
         </div>
         <div class="post-grid">
-            <div class="post">
+            <div class="post" data-post="post1">
                 <img src="https://raw.githubusercontent.com/FearOfPixelation/Pixelated-Ideas/main/markus-spiske-1LLh8k2_YFk-unsplash.jpg" alt="Post 1 Thumbnail">
                 <h2>How to make HTML websites with ChatGPT</h2>
-                <p>Content about creating HTML websites using ChatGPT...</p>
+                <div class="date">June 11, 2024</div>
+            </div>
+            <div class="post" data-post="post2">
+                <img src="https://raw.githubusercontent.com/FearOfPixelation/Pixelated-Ideas/main/matteo-fusco-4zvnt60-pak-unsplash.jpg" alt="Post 2 Thumbnail">
+                <h2>What is temperature in AI terms</h2>
+                <div class="date">June 11, 2024</div>
             </div>
         </div>
-        <div class="blog-post">
+        <div class="about">
+            <h2>What is this?</h2>
+            <p>This is a personal project of mine, this website revolves around the use of technology and AI.</p>
+            
+            <h3>Why'd I make it?</h3>
+            <p>Because I was bored one day, I wanted to see what I could do with ChatGPT.</p>
+            
+            <h3>Purpose of this?</h3>
+            <p>To share some knowledge.</p>
+            
+            <h3>Future Plans?</h3>
+            <p>I'm going to add more blogs.</p>
+        </div>
+        <div id="post1" class="blog-post">
             <h2>How to make HTML websites with ChatGPT</h2>
             <p>Website design has never been easier, here's how to make a website with ChatGPT! Firstly, go to the <a href="https://chatgpt.com" target="_blank">ChatGPT</a> website. Now, ask ChatGPT to create "HTML code" with your website idea in the same message.</p>
             <img src="https://raw.githubusercontent.com/FearOfPixelation/Pixelated-Ideas/main/Screenshot%202024-06-11%20174950.png" alt="Step 1 Screenshot">
@@ -184,7 +226,7 @@
             <img src="https://raw.githubusercontent.com/FearOfPixelation/Pixelated-Ideas/main/Screenshot%202024-06-11%20180141.png" alt="Step 4 Screenshot">
             <p>Name it .html at the end, then click save.</p>
             <img src="https://raw.githubusercontent.com/FearOfPixelation/Pixelated-Ideas/main/Screenshot%202024-06-11%20180401.png" alt="Step 5 Screenshot">
-            <p>You now have a website file, you now need a domain. You can either get a domain with GitHub (How this website is running) or you can get paid domains. Here are some domain hosters:</p>
+            <p>You now have a website file. You can open it to run it on your browser locally. But to get it online you now need a domain. You can either get a domain with GitHub (How this website is running) or you can get paid domains. Here are some domain hosters:</p>
             <ul>
                 <li><a href="https://www.godaddy.com/" target="_blank">GoDaddy</a></li>
                 <li><a href="https://www.namecheap.com/" target="_blank">Namecheap</a></li>
@@ -198,10 +240,16 @@
                 <li><a href="https://www.greenhost.net/" target="_blank">Greenhost</a></li>
             </ul>
         </div>
+        <div id="post2" class="blog-post">
+            <h2>What is temperature in AI terms</h2>
+            <p>In various advanced AI applications, there is a setting called temperature that can be seen.</p>
+            <img src="https://raw.githubusercontent.com/FearOfPixelation/Pixelated-Ideas/main/Screenshot%202024-06-11%20213651.png" alt="Image 1">
+            <p></p>
+            <img src="https://raw.githubusercontent.com/FearOfPixelation/Pixelated-Ideas/main/Screenshot%202024-06-11%20213553.png" alt="Image 2">
+            <p></p>
+            <p>What is temperature. To put it simply, it decides how random the system is. If a temperature is 0, the AI will be deterministic. It will always spit out the same message if given the same prompt in different chats. These prompts will usually lack creativity, but it will be more professional and coherent.</p>
+            <p>The higher a temperature is the more random it gets, causing more creativity. A moderate temperature is usually .7. If a temperature is set too high, it may start generating absurd prompts with near to no cohesion.</p>
+        </div>
     </div>
-    <footer>
-        &copy; 2024 Pixelated Ideas. All rights reserved.
-    </footer>
 </body>
 </html>
-
